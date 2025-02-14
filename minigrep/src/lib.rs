@@ -2,11 +2,21 @@ use std::{error::Error, fs};
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let contents = fs::read_to_string(config.file_path)?;
+
+    for matched_line in search(&config.query, &contents) {
+        println!("{matched_line}");
+    }
     Ok(())
 }
 
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    vec![]
+    let mut result = Vec::new();
+    for each_line in contents.lines() {
+        if each_line.contains(query) {
+            result.push(each_line);
+        }
+    }
+    result
 }
 
 pub struct Config {
