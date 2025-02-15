@@ -4,8 +4,7 @@ use std::{env::args, process};
 fn main() {
     println!("Welcome to minigrep a rust implementation of grep");
 
-    let args: Vec<String> = args().collect();
-    let config = Config::build(&args[..]).unwrap_or_else(|err| {
+    let config = Config::build(std::env::args()).unwrap_or_else(|err| {
         eprintln!("Problem parsing arguments: {err}");
         process::exit(1);
     });
